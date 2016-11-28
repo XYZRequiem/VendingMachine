@@ -1,0 +1,305 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<title>CPS393 - Assignment Vending Mach</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1 align="center"><font size="5">CPS393 - Assignment</font></h1>
+
+<p><font size="4">Write a C program called &quot;pop&quot;
+which simulates the operation of a soft drink vending machine.
+Your program should meet the following requirements.&nbsp; The user running the
+program will simulate both service and customer actions.</font></p>
+
+<h3><font size="4">Service/Maintenance Requirements</font></h3>
+
+<ul>
+    <li><font size="4">set the selling price (range 30� to $1.05) from a
+      command line argument (cents only)</font></li>
+    <li><font size="4">provide a specific message (as in sample below) for
+      the following error cases and return to the operating system:</font>
+      <ul>
+        <li><font size="4">command line argument is missing</font></li>
+        <li><font size="4"> prices out of range</font></li>
+        <li><font size="4">price not a multiple of 5</font></li>
+      </ul>
+    </li>
+    <li><font size="4">with a valid selling price, put machine in-service for
+      continual sales (See Customer Requirements)</font></li>
+    <li><font size="4">as a maintenance action (hidden from menu), allow service
+      person to shutdown (exit) the program altogether at the coin prompt by pressing E or
+      e; refund any pending amount</font></li>
+</ul>
+
+<h3><font size="4">Customer Requirements</font></h3>
+
+<ul>
+    <li><font size="4">First assume that there is only one flavour of pop, and
+      that the machine won't run out of pop (no need to track
+      inventory or total sales)</font></li>
+    <li><font size="4">display a welcome message stating the pop
+        price, and what coins and commands are
+        accepted</font></li>
+    <li><font size="4">prompt the user to insert coins (via keyboard entry)</font></li>
+    <li><font size="4">accept a nickel [N or n], dime [D or d] or
+        quarter [Q or q]; reject all other input except maintenance actions;
+      continually re-prompt if input is invalid</font></li>
+    <li><font size="4">after each coin, display how much the user
+        has inserted in total <strong>and</strong> how much more
+        the user needs to insert</font></li>
+    <li><font size="4">dispense product on collecting sufficient
+        money (only one flavour)</font></li>
+    <li><font size="4">provide change for overpayment using <strong>only</strong>
+        dimes and nickels (assume machine won't run out)</font></li>
+    <li><font size="4">allow user to abort the transaction by
+        pressing coin return (R or r). Refund using <strong>only</strong>
+        dimes and nickels using the <b>fewest</b> number of coins.&nbsp;</font></li>
+    <li><font size="4">continually prompt for additional sales -- do not exit
+      the program</font></li>
+    <li><font size="4">control flow of your program must match example sequence</font></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><font size="4">Example sequence (not exhaustive testing):</font></p>
+
+<pre><font face="Courier New" size="4">$ <b>pop
+</b>Please specify selling price as command line argument.
+Usage: pop [price]
+$ <b>pop 225</b>
+Price must be from 30 to 105 cents inclusive
+$ <b>pop 86</b>
+Price must be a multiple of 5.
+$ <b>pop 50</b></font></pre>
+
+<pre><font size="4" face="Courier New">Welcome to my C Pop Machine!</font></pre>
+
+<pre><font size="4" face="Courier New">Pop is 50 cents. Please insert any combination of nickels [N or n], dimes [D or d] or quarters [Q or Q]. You can also press R or r for coin return.</font></pre>
+
+<pre><font size="4" face="Courier New">Enter coin (NDQR): <b>n</b>
+  Nickel detected.
+    You have inserted a total of 5 cents.
+    Please insert 45 more cents.
+Enter coin (NDQR): <b>N</b>
+  Nickel detected.
+    You have inserted a total of 10 cents.
+    Please insert 40 more cents.
+Enter coin (NDQR): <b>d</b>
+  Dime detected.
+    You have inserted a total of 20 cents.
+    Please insert 30 more cents.
+Enter coin (NDQR): <b>q</b>
+  Quarter detected
+    You have inserted a total of 45 cents.
+    Please insert 5 more cents.
+Enter coin (NDQR): <b>j</b>
+  Unknown coin rejected.
+    You have inserted a total of 45 cents.
+    Please insert 5 more cents.
+Enter coin (NDQR): <b>Q</b>
+  Quarter detected.
+    You have inserted a total of 70 cents.
+    Pop is dispensed. Thank you for you business! Please come again.
+    Change given: 20 cents as 2 dime(s) and 0 nickel(s).
+Enter coin (NDQR): <b>q</b>
+  Quarter detected.
+    You have inserted a total of 25 cents.
+    Please insert 25 more cents.
+Enter coin (NDQR): <b>R</b>
+    Change given: 25 cents as 2 dime(s) and 1 nickel(s).
+Enter coin (NDQR): <b>q</b>
+  Quarter detected.
+    You have inserted a total of 25 cents.
+    Please insert 25 more cents.
+Enter coin (NDQR): <b>E</b>
+    Change given: 25 cents as 2 dime(s) and 1 nickel(s).
+Shutting down. Goodbye.</font></pre>
+
+<pre><font size="4" face="Courier New">$</font></pre>
+
+<h3><font size="4">Implementation Requirements</font></h3>
+
+<ul>
+    <li>
+      <p style="margin-bottom: 12"><font size="4">All
+      constants (any value which should not change during program execution) must be specified with a #define or const qualifier.&nbsp;
+      Also, comments must match program behaviour.&nbsp; Never have hard-coded constants embedded within your code!</font>
+      <table border="1">
+        <tr>
+          <td>Bad</td>
+          <td>Good</td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">if (temperature &lt; 21 )</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">  printf(&quot;Too cold! &quot;);</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">  printf(&quot;I prefer at least 21 degrees&quot;);</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">/* checks if temp is less than 21 */</pre>
+          </td>
+          <td valign="top">
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">#define COMFORT 21</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">...</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">if (temperature &lt; COMFORT)</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">  printf(&quot;Too cold! &quot;);</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">  printf(&quot;I prefer at least COMFORT degrees&quot;)</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">/* checks if temp is less than COMFORT */</pre>
+          </td>
+        </tr>
+      </table>
+    </li>
+</ul>
+
+<p>&nbsp;</p>
+
+<ul>
+    <li>
+      <p style="margin-bottom: 12"><font size="4">Constants must not be stored in a program variable because a
+      variable can be changed (unless using a const qualifier to make variable
+      read-only).</font></p>
+      <table border="1">
+        <tr>
+          <td>Bad</td>
+          <td>Good</td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">int maxheight = 50;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">...</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">if (height &gt; maxheight)
+  printf(&quot;Too high\n&quot;);</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">...</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">maxheight = 75; /* oh, oh */</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">...</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">printf(&quot;Maximum allowable height is %d&quot;, maxheight);</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">/* max height is 50; print 50 */</pre>
+          </td>
+          <td valign="top">
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">#define MAXHEIGHT 50</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">...</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">if (height &gt; MAXHEIGHT )
+  printf(&quot;Too high\n&quot;);</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">...</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">MAXHEIGHT = 75; /* syntax error, automatic error prevention */</pre>
+          </td>
+        </tr>
+      </table>
+    </li>
+</ul>
+
+<p>&nbsp;</p>
+
+<ul>
+    <li>
+      <p style="margin-bottom: 12"><font size="4">If program requirements change (e.g. price limit) and you would have to change
+      a value in more than one place <b><i>anywhere</i></b>
+      in your program, this is a red flag
+      that you should be using a #define with the symbol in each instance (e.g.
+      PI not 3.142).&nbsp;&nbsp;</font></p>
+      <table border="1">
+        <tr>
+          <td>Bad</td>
+          <td>Good</td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">circum = 2 * 3.142 * radius;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">area = 3.142 * radius * radius;</pre>
+          </td>
+          <td valign="top">
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">#define PI 3.142</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">...</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">&nbsp;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">circum = 2 * PI * radius;</pre>
+            <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">area = PI * radius * radius;</pre>
+          </td>
+        </tr>
+      </table>
+    </li>
+</ul>
+
+<p>&nbsp;</p>
+
+<ul>
+    <li>
+      <p style="margin-bottom: 12"><font size="4">There must be no duplication of code.&nbsp; Consider the
+      (similarity of) computation for returning change and providing a
+      refund.&nbsp; If quarters ever needed to be added to the change
+      denominations, it should not require code changes in more than one place.</font></li>
+    <li><font size="4">There are penalties for each infraction above.&nbsp; See
+      grading scheme/rubric for details.</font></li>
+</ul>
+
+<h3>Bonus opportunity: Fabulous First Impression</h3>
+<blockquote>
+  <p><font size="4">You will earn one bonus mark if all conditions are met:</font></p>
+  <ul>
+    <li><font size="4">It is the *<b>first</b>* presentation of your program to
+      the customer.</font></li>
+    <li><font size="4">Your program meets all requirements (functional, implementation, and documentation requirements).</font></li>
+    <li><font size="4">There are no deficiencies or error messages.</font></li>
+    <li><font size="4">No failing test cases.</font></li>
+  </ul>
+</blockquote>
+<p><font size="4">The intent here is that the customer should not be the one to do functional testing.  Before the customer presentation, you should check that your software meets all requirements,
+do a code review, and create your own test cases to verify each requirement.&nbsp;
+Do not rely solely on the example sequence. Only when your program is complete should you consider presenting to the customer.&nbsp;</font></p>
+<p><font size="4"><i>&quot;Oh, I didn't see that requirement."</i> -- Check each category of requirements
+before presenting.</font></p>
+<p><font size="4"><i>&quot;Oh, but it's just a one-line fix!"</i> -- Make all these fixes before presenting.</font></p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<h3 style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">Notes
+on typical problems:</h3>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">Q:
+I am having problems with scanf/getchar; I have to hit enter twice, or it skips
+input.</p>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">A1:
+If you use scanf, you need to put a space character inside the quotes before the
+placeholder, like this:</p>
+<blockquote>
+  <blockquote>
+  <table border="1" width="465" height="85">
+    <tr>
+      <td width="465" height="85">
+        <pre style="line-height: 100%; margin-top: 0; margin-bottom: 0">#include &lt;stdio.h&gt;
+int main (void) {
+char command;
+do
+{
+   printf(&quot;Enter a command (X to exit): &quot;);
+<font color="#008000">   scanf(&quot; %c&quot;, &amp;command); /* note SPACE before %c */</font>
+   printf(&quot;You entered: %c\n&quot;, command);
+}
+while (command != 'X');
+printf(&quot;Goodbye\n&quot;);
+return (0);
+}</pre>
+      </td>
+    </tr>
+  </table>
+  </blockquote>
+</blockquote>
+<p style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">A2:
+If you use getchar, remember that this reads only a single character, but your
+program does not see it until the user presses &lt;enter&gt; adding the newline
+character. You have to add
+another getchar after each scanf() to &quot;swallow&quot; the newline like this:</p>
+<blockquote style="color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+  <pre>scanf(&quot;%d&quot;, &amp;key_data);
+while (getchar() != '\n'); /* eat newline */</pre>
+</blockquote>
+</body>
+</html>
